@@ -32,7 +32,16 @@ const uploadOnCloudinary = async (localFilePath) =>{
 
 }
 
+const deleteOldFile = async (cloudinaryUrl) =>{
+    try{
+        const parts = url.split("/");
+        const publicId = parts.slice(-2).join("/").split(".")[0];
+    }catch(error){
+        return null;
+    }
+}
 
-export {uploadOnCloudinary};
+
+export {uploadOnCloudinary,deleteOldFile};
 
 
