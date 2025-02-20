@@ -65,6 +65,7 @@ web_modules/
 
 # Output of 'npm pack'
 *.tgz
+/thoughts.txt
 
 # Yarn Integrity file
 .yarn-integrity
