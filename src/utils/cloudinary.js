@@ -33,20 +33,31 @@ const uploadOnCloudinary = async (localFilePath) =>{
 
 }
 
-const deleteOldFile = async (cloudinaryUrl) =>{
+const deleteCloudinaryFile = async (cloudinaryUrl,fileType) =>{
     try{
         const parts = cloudinaryUrl.split("/");
-        const publicId = parts.slice(-2).join("/").split(".")[0];
+        const publicId = parts[parts.length - 1].split(".")[0];
 
-        const response = await cloudinary.uploader.destroy(publicId);
+        
+
+        
+
+        
+        const response = await cloudinary.uploader.destroy(publicId,{
+            resource_type:fileType,
+            invalidate:true
+        });
+
+
+        
         
 
     }catch(error){
-        throw new ApiError(400,"Error deleting cloudinary image");
+        throw new ApiError(400,`Error deleting cloudinary File : ${error.message}`);
     }
 }
 
 
-export {uploadOnCloudinary,deleteOldFile};
+export {uploadOnCloudinary,deleteCloudinaryFile};
 
 

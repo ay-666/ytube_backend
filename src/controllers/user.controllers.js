@@ -2,7 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.models.js";
-import { deleteOldFile, uploadOnCloudinary } from "../utils/cloudinary.js";
+import { deleteCloudinaryFile, uploadOnCloudinary } from "../utils/cloudinary.js";
 import jwt from 'jsonwebtoken';
 import mongoose from "mongoose";
 
@@ -228,9 +228,13 @@ export const logoutUser = asyncHandler(async (req,res)=>{
 export const changeCurrentpassword = asyncHandler(async (req,res) =>{
     const {currentPassword,newPassword} = req.body;
     
+    
+    
+    
     if(!currentPassword || !newPassword){
         throw new ApiError(401,"Enter valid password");
     }
+
     if(currentPassword === newPassword){
         throw new ApiError(401,"Current and New password can't be same")
     }
@@ -286,9 +290,9 @@ export const updateUserAvatar= asyncHandler(async(req,res)=>{
 
     const user = await User.findById(req.user?._id);
     
-    await deleteOldFile(user.avatar);
+    await deleteCloudinaryFile(user.avatar,"image");
 
-    user.avatar = avatar;
+    user.avatar = avatar?.secure_url;
 
     await user.save({validateBeforeSave:false});
 
@@ -320,9 +324,9 @@ export const updateUserCoverImage= asyncHandler(async(req,res)=>{
 
     const user = await User.findById(req.user?._id);
     if(user.coverImage)
-        await deleteOldFile(user.coverImage);
+        await deleteCloudinaryFile(user.coverImage,"image");
 
-    user.coverImage = coverImage;
+    user.coverImage = coverImage?.secure_url;
 
     await user.save({validateBeforeSave:false});
 
@@ -385,7 +389,7 @@ export const getUserChannelProfile = asyncHandler(async(req,res)=>{
         {
             $project: {
                 fullName: 1,
-                emai: 1,
+                email: 1,
                 username:1,
                 subscribersCount:1,
                 subscribedToCount:1,

@@ -8,7 +8,7 @@ const videoSchema = new Schema({
         required:true
     },
     thumbnail:{
-        type:String,
+        type:String, // cloudinary url
         required:true
     },
     title:{
@@ -20,7 +20,7 @@ const videoSchema = new Schema({
         required:true
     },
     duration:{
-        type:Number, // cloudinary url
+        type:Number, // from cloudinary url
         required:true
     },
     views:{
@@ -37,6 +37,11 @@ const videoSchema = new Schema({
     }
 },{timestamps:true});
 
+
+videoSchema.methods.isOwner =  function (userId){
+
+    return this.owner.equals(new mongoose.Types.ObjectId(userId));
+}
 
 videoSchema.plugin(mongooseAggregatePaginate);
 
