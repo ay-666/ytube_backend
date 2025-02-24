@@ -40,7 +40,7 @@ const videoSchema = new Schema({
 
 videoSchema.methods.isOwner =  function (userId){
 
-    return this.owner.equals(new mongoose.Types.ObjectId(userId));
+    return this.owner.equals(userId);
 }
 
 videoSchema.plugin(mongooseAggregatePaginate);

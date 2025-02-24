@@ -13,4 +13,9 @@ const tweetSchema = new Schema(
 
     },{timestamps:true});
 
+
+    tweetSchema.methods.isOwner =  function (userId){
+        return this.owner.equals(userId);
+    }
+
 export const Tweet = mongoose.model("Tweet",tweetSchema);
