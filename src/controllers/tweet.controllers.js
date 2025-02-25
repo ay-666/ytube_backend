@@ -50,7 +50,7 @@ export const getUserTweets = asyncHandler(async (req,res)=>{
 });
 
 export const deleteTweet = asyncHandler(async(req,res) =>{
-    const tweetId = req.params;
+    const {tweetId} = req.params;
 
     const tweet = await Tweet.findById(tweetId);
 

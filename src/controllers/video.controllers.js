@@ -27,7 +27,7 @@ export const getAllVideos = asyncHandler(async(req , res)=>{
     
         let filter = {...query};
         if(userId){
-            filter.userId = userId;
+            filter.userId = new mongoose.Types.ObjectId(String(userId));
         }
         
         const aggergateQuery =  Video.aggregate([
