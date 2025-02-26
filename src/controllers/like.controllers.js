@@ -1,4 +1,4 @@
-import { asyncHandler } from "../utils/asyncHandler";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 import { Like } from "../models/like.models.js";
 import { Comment } from "../models/comment.models.js";
@@ -14,7 +14,7 @@ export const toggleVideoLike = asyncHandler(async(req , res)=>{
     throw new ApiError(400,"Invalid request. video not found!");
   }
 
-  const existingLike = Like.findOne({video:videoId,likedBy: req.user?._id});
+  const existingLike = await Like.findOne({video:videoId,likedBy: req.user?._id});
 
   if(existingLike){
     await Like.findByIdAndDelete(existingLike._id);
@@ -41,7 +41,7 @@ export const toggleCommentLike = asyncHandler(async(req , res)=>{
     throw new ApiError(400,"Invalid request. Comment not found!");
   }
 
-  const existingLike = Like.findOne({$comment:commentId,likedBy: req.user?._id});
+  const existingLike = await Like.findOne({$comment:commentId,likedBy: req.user?._id});
 
   if(existingLike){
     await Like.findByIdAndDelete(existingLike._id);
@@ -68,7 +68,7 @@ export const toggleTweetLike = asyncHandler(async(req , res)=>{
     throw new ApiError(400,"Invalid request. Tweet not found!");
   }
 
-  const existingLike = Like.findOne({tweet:tweetId,likedBy: req.user?._id});
+  const existingLike = await Like.findOne({tweet:tweetId,likedBy: req.user?._id});
 
   if(existingLike){
     await Like.findByIdAndDelete(existingLike._id);

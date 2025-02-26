@@ -82,7 +82,7 @@ export const deleteComment = asyncHandler(async (req,res)=>{
   }
 
   
-  await Comment.deleteOne({commentId});
+  await Comment.deleteOne({_id:commentId});
 
   
 
