@@ -32,6 +32,8 @@ import commentRouter from "./routes/comment.routes.js";
 
 import likeRouter from "./routes/like.routes.js";
 
+import subscriptionRouter from "./routes/subscription.routes.js";
+
 
 
 // Routes Declaration
@@ -45,6 +47,8 @@ app.use('/api/v1/tweet',tweetRouter);
 app.use('/api/v1/comment',commentRouter);
 
 app.use('/api/v1/like',likeRouter);
+
+app.use('/api/v1/subscription',subscriptionRouter);
 
 
 export {app} ;

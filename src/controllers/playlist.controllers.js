@@ -36,5 +36,20 @@ export const getUserPlaylists = asyncHandler(async (req,res)=>{
     if(!playlists){
         throw new ApiError(400,"Error getting playlist.");
     }
-    return res.status(200).json(new ApiResponse(200,playlists,"Playlists frtched successfully."));
+    return res.status(200).json(new ApiResponse(200,playlists,"Playlists fetched successfully."));
+});
+
+export const getPlaylistById = asyncHandler(async(req,res)=>{
+    const {playlistId} = req.params;
+    const playlist = await Playlist.findById(playlistId);
+    if(!playlist){
+        throw new ApiError(404,"Playlist not found!");
+    }
+    return res.status(200).json(new ApiResponse(200,playlist,"Playlist found!"));
+});
+
+export const addVideoToPlaylist = asyncHandler(async(req,res)=>{
+    const {playlistId , videoId} = req.params;
+
+    
 });

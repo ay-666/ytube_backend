@@ -91,12 +91,9 @@ export const registerUser = asyncHandler(async (req, res) => {
     if(existingUser){
         throw new ApiError(409,"User already exists");
     }
-    
 
+    
     const avatarLocalPath = req.files?.avatar?.[0]?.path || null;
-    //console.log(req.files?.avatar[0]?.path);
-
-    
 
     if(!avatarLocalPath){
         throw new ApiError(400,"Please upload avatar");
@@ -370,7 +367,7 @@ export const getUserChannelProfile = asyncHandler(async(req,res)=>{
             }
         },
         {
-            $addFields:{
+            $addFields: {
                 subscribersCount:{
                     $size: "$subscribers"
                 },
